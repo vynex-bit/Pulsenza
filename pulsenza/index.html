@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pulsenza</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  
+  <style>
+    /* Orbitron font applied strictly to the Services section headlines and titles */
+    #services h2,
+    #services .service-card-title,
+    #services .label {
+      font-family: 'Orbitron', sans-serif !important;
+    }
+
+    /* Default Dark Mode text fixes for Services Section */
+    #services h2 {
+      color: #ffffff !important;
+    }
+    #services p, 
+    #services .label {
+      color: #c8c8c8 !important;
+    }
+
+    /* Light mode overrides */
+    body.light-mode #services h2,
+    body.light-mode #services p,
+    body.light-mode #services .label {
+      color: #111 !important;
+    }
+    body.light-mode #services .tab-btn {
+      color: #666 !important;
+    }
+    body.light-mode #services .tab-btn.active {
+      color: #111 !important;
+    }
+
+    /* Modern Card Layout Styling */
+    .services-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .service-card {
+      background: #1a1a1c;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 255, 255, 0.15);
+    }
+
+    body.light-mode .service-card {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+    }
+
+    .service-card-img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .service-card-content {
+      padding: 24px;
+    }
+
+    .service-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .service-card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+    }
+
+    body.light-mode .service-card-title {
+      color: #111;
+    }
+
+    .badge {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    body.light-mode .badge {
+      background: rgba(0, 0, 0, 0.08);
+      color: #333;
+    }
+
+    .service-card-desc {
+      font-size: 14px;
+      color: #a0a0a0;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    body.light-mode .service-card-desc {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <a href="#" class="logo"></a>
+    <nav class="navbar">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <nav class="side-nav">
+    <a href="#" class="nav-btn" aria-label="AI">
+      <svg viewBox="0 0 24 24"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg>
+    </a>
+    <a href="#home" class="nav-btn active" aria-label="Home">
+      <svg viewBox="0 0 24 24"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1z"/></svg>
+    </a>
+    <a href="#" class="nav-btn" aria-label="Explore">
+      <svg viewBox="0 0 24 24"><path d="M12 3l2.2 6.8H21l-5.5 4 2.1 6.7L12 16.8 6.4 20.5 8.5 13.8 3 9.8h6.8z"/></svg>
+    </a>
+    <a href="#" class="nav-btn" aria-label="Menu">
+      <svg viewBox="0 0 24 24"><path d="M5 7h14M5 12h14M5 17h14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+    </a>
+    <a href="#" class="nav-btn" aria-label="Settings">
+      <svg viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm8.5 4a7.4 7.4 0 0 0-.2-1.6l2-1.5-2-3.4-2.4 1a7.6 7.6 0 0 0-2.8-1.6L14.6 2h-5.2L8.9 5a7.6 7.6 0 0 0-2.8 1.6l-2.4-1-2 3.4 2 1.5a7.4 7.4 0 0 0 0 3.2l-2 1.5 2 3.4 2.4-1a7.6 7.6 0 0 0 2.8 1.6l.5 3h5.2l.5-3a7.6 7.6 0 0 0 2.8-1.6l2.4 1 2-3.4-2-1.5c.1-.5.2-1 .2-1.6z"/></svg>
+    </a>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="home">
+    <img src="https://i.pinimg.com/1200x/2d/98/96/2d9896930780c97f552220af1961c23d.jpg" alt="Futuristic Pulsenza background">
+
+    <h1 class="brand" id="brand"></h1>
+
+    <div class="hero-text">
+      <h2>Powering Infrastructure Through Human Movement</h2>
+      <p>
+        Turning everyday footsteps into clean, usable energy.<br>
+        Engineered for smarter, more sustainable spaces.
+      </p>
+    </div>
+
+    <a href="#about" class="about-btn">About Us</a>
+
+    <div class="home-sci">
+      <a href="https://www.instagram.com/official_pulsenza" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="bx bxl-instagram"></i></a>
+      <a href="#" target="_blank" aria-label="X / Twitter"><i class="bx bxl-twitter"></i></a>
+      <a href="#" target="_blank" aria-label="Facebook"><i class="bx bxl-facebook"></i></a>
+    </div>
+  </section>
+
+  <!-- Dark Mode Toggle -->
+  <input type="checkbox" id="darkmode-toggle"/>
+  <label for="darkmode-toggle">
+    <svg class="sun" viewBox="0 0 24 24">
+      <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 0 0 0-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>
+    </svg>
+    <svg class="moon" viewBox="0 0 24 24">
+      <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>
+    </svg>
+  </label>
+
+  <!-- ABOUT SECTION -->
+  <section class="about" id="about">
+    <div class="about-container">
+      <h2 class="main-headline">
+        <span class="slide-left">INNOVATION</span>
+      </h2>
+
+      <div class="cards">
+        <div class="card level-1">
+          <h3>What We Do</h3>
+          <p class="reveal-text">
+            Pulsenza focuses on converting everyday human movement into clean, usable energy using piezoelectric technology.
+          </p>
+        </div>
+
+        <div class="card level-2">
+          <h3>How It Works</h3>
+          <p>
+            When pressure is applied to piezoelectric materials, they generate a small electrical charge that can be harvested and stored.
+          </p>
+        </div>
+
+        <div class="card level-3">
+          <h3>Why It Matters</h3>
+          <p class="reveal-text">
+            By placing energy-harvesting tiles in walkways and public spaces, we can create smarter and more sustainable infrastructure.
+          </p>
+        </div>
+
+        <div class="card level-2">
+          <h3>Our Goal</h3>
+          <p class="reveal-text">
+            To turn wasted motion into useful energy and support the development of practical energy-harvesting solutions.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPLIT SECTIONS -->
+  <section class="split-sections">
+    <div class="split-left">
+      <div class="content">
+        <div class="header-line-wrapper">
+          <p class="label">OUR APPROACH</p>
+          <div class="animated-line horizontal"></div>
+        </div>
+        <div class="vertical-line"></div>
+
+        <h2 class="animate-left">Rooted in energy,<br>driven by movement.</h2>
+        <p class="animate-left delay-1">
+          Pulsenza explores how everyday human footsteps can be turned into clean, usable energy. 
+          We focus on practical piezoelectric solutions that work in real spaces.
+        </p>
+        <p class="animate-left delay-2">
+          From walkways to public infrastructure, every step has the potential to contribute to a more sustainable future.
+        </p>
+      </div>
+    </div>
+
+    <div class="split-right">
+      <div class="content">
+        <h2 class="animate-left">Small steps.<br>Big impact.</h2>
+        <p class="animate-left delay-1">
+          Every footstep carries energy. Pulsenza captures a portion of that energy and turns it into something useful.
+        </p>
+        <p class="animate-left delay-2">
+          By integrating harvesting technology into everyday environments, we aim to support smarter and more efficient infrastructure.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCROLL REVEAL SECTION (Right Image) -->
+  <section class="scroll-reveal-section" id="vision">
+    <div class="scroll-container">
+      <!-- Left: Text -->
+      <div class="scroll-text">
+        <div class="header-line-wrapper">
+          <p class="label">THE VISION</p>
+          <div class="animated-line horizontal"></div>
+        </div>
+        <div class="vertical-line"></div>
+
+        <h2 class="animate-left">Energy exists<br>in every step.</h2>
+        <p class="animate-left delay-1">
+          Pulsenza captures the kinetic energy of human movement and converts it into usable power. 
+          Each footstep becomes a small contribution to cleaner infrastructure.
+        </p>
+        <p class="animate-left delay-2">
+          By embedding piezoelectric technology into walkways, floors, and public spaces, we turn 
+          everyday motion into a continuous source of renewable energy.
+        </p>
+      </div>
+
+      <!-- Right: Image -->
+      <div class="scroll-image">
+        <div class="image-frame">
+          <div class="frame-line top"></div>
+          <div class="frame-line right"></div>
+          <div class="frame-line bottom"></div>
+          <div class="frame-line left"></div>
+          <img 
+            src="https://i.pinimg.com/1200x/f0/6f/e9/f06fe9bfcda0ef23e9474737d57f41b7.jpg" 
+            alt="Energy visualization"
+          >
+        </div>
+
+        <div class="image-text">
+          <h3>Power in Motion</h3>
+          <p>
+            Every step you take carries energy that is normally lost. Pulsenza captures that kinetic force through advanced piezoelectric materials and converts it into clean, usable electricity. By embedding these systems into walkways, floors, and public spaces, we turn everyday human movement into a continuous source of renewable power — making infrastructure smarter, more efficient, and more sustainable.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CIRCLE IMAGE SECTION WITH ROTATING TEXT -->
+  <section class="circle-section" id="circle-section">
+    <div class="circle-container">
+      <!-- Left: Header + Paragraph -->
+      <div class="circle-left">
+        <div class="circle-paragraph">
+          <h2>Energy in Motion</h2>
+          <p>
+            Every footstep carries unused kinetic energy. Pulsenza captures that force through piezoelectric technology and converts it into clean, usable electricity. By placing these systems in walkways, floors, and public spaces, everyday movement becomes a continuous source of renewable power.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: Circle -->
+      <div class="circle-right">
+        <div class="circle">
+          <img
+            src="https://i.pinimg.com/1200x/65/86/75/658675e760df47c45b485410bccec058.jpg" 
+            alt="Pulsenza"
+            class="circle-image"
+          />
+          <div class="text">
+            <p>PULSENZA • ENERGY • MOVEMENT • FUTURE • PULSENZA • ENERGY • MOVEMENT • FUTURE • </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION WITH MODERN CARDS -->
+  <section class="scroll-reveal-section" id="services" style="min-height: auto; padding: 80px 6vw;">
+    <div class="scroll-container" style="display: block; max-width: 1200px;">
+      
+      <!-- Header Line Wrapper with Horizontal & Vertical lines -->
+      <div class="header-line-wrapper">
+        <p class="label">SERVICES</p>
+        <div class="animated-line horizontal"></div>
+      </div>
+      <div class="vertical-line"></div>
+
+      <h2 class="animate-left" style="font-size: clamp(32px, 4vw, 48px); font-weight: 700; line-height: 1.15; margin: 0 0 20px; letter-spacing: -0.03em;">Tailored Solutions</h2>
+      
+      <p class="animate-left delay-1" style="font-size: 17px; line-height: 1.7; max-width: 600px; margin-bottom: 30px;">
+        Discover how our kinetic energy harvesting technology adapts to your individual needs or large-scale commercial setups.
+      </p>
+
+      <!-- Personal vs Commercial Tab Switcher Buttons -->
+      <div class="tab-switcher animate-left delay-2" style="display: flex; gap: 30px; border-bottom: 2px solid rgba(255,255,255,0.15); margin-top: 20px; width: fit-content;">
+        <button class="tab-btn active" onclick="switchServiceTab('personal', this)" style="background: none; border: none; font-size: 17px; font-weight: 600; color: inherit; padding-bottom: 12px; cursor: pointer; position: relative;">
+          For personal use
+          <span class="indicator" style="position: absolute; bottom: -2px; left: 0; width: 100%; height: 2px; background-color: currentColor;"></span>
+        </button>
+        <button class="tab-btn" onclick="switchServiceTab('commercial', this)" style="background: none; border: none; font-size: 17px; font-weight: 600; color: #7e7e7e; padding-bottom: 12px; cursor: pointer; position: relative;">
+          Business / Commercial
+        </button>
+      </div>
+
+      <!-- Tab Content Area containing the Cards -->
+      <div id="service-content-area" style="margin-top: 40px;">
+        
+        <!-- PERSONAL USE CARDS (3 Cards) -->
+        <div id="personal-content" class="tab-pane">
+          <div class="services-cards-grid">
+            
+            <!-- Card 1 -->
+            <div class="service-card">
+              <img src="https://i.pinimg.com/1200x/7a/ce/c9/7acec97f75e012362effc3248bc6c502.jpg" alt="Residential Kit" class="service-card-img">
+              <div class="service-card-content">
+                <div class="service-card-header">
+                  <h3 class="service-card-title">Home Stair Power</h3>
+                  <span class="badge">New</span>
+                </div>
+                <p class="service-card-desc">Capture energy from your staircase every time you go up or down.</p>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="service-card">
+              <img src="https://i.pinimg.com/736x/e3/66/f1/e366f10b4115d29d548dae2c201a9049.jpg" alt="Future Living" class="service-card-img">
+              <div class="service-card-content">
+                <div class="service-card-header">
+                  <h3 class="service-card-title">Future comfort</h3>
+                  <span class="badge">Essential</span>
+                </div>
+                <p class="service-card-desc">Smart tiles for living rooms and hallways that turn footsteps into light.</p>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="service-card">
+              <img src="https://i.pinimg.com/736x/05/17/65/0517651c40d9c31407aae1885831ad43.jpg" alt="Personal Generator" class="service-card-img">
+              <div class="service-card-content">
+                <div class="service-card-header">
+                  <h3 class="service-card-title">terrace or balcony</h3>
+                  <span class="badge">New</span>
+                </div>
+                <p class="service-card-desc">Turn your terrace or balcony into a power source. Every step you take while walking, standing, or relaxing outdoors gets converted into clean energy for small lighting and devices.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- COMMERCIAL USE CARDS (3 Cards) -->
+        <div id="commercial-content" class="tab-pane" style="display: none;">
+          <div class="services-cards-grid">
+            
+            <!-- Card 1 -->
+            <div class="service-card">
+              <img src="https://i.pinimg.com/736x/61/59/8c/61598c76534aec1bfdfba58418d44920.jpg" alt="Commercial Grid" class="service-card-img">
+              <div class="service-card-content">
+                <div class="service-card-header">
+                  <h3 class="service-card-title">Corporate Grid</h3>
+                  <span class="badge">Enterprise</span>
+                </div>
+                <p class="service-card-desc">High-traffic smart flooring and corporate infrastructure integration for large corporate buildings.</p>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="service-card">
+              <img src="https://i.pinimg.com/1200x/8d/ae/5d/8dae5dc4d32c5db907e8907584451796.jpg" alt="Public Infrastructure" class="service-card-img">
+              <div class="service-card-content">
+                <div class="service-card-header">
+                  <h3 class="service-card-title">Public Walkway</h3>
+                  <span class="badge">Large Scale</span>
+                </div>
+                <p class="service-card-desc">Large-scale public walkway power systems engineered to power city streetlights using foot traffic.</p>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="service-card">
+              <img src="https://i.pinimg.com/1200x/bb/46/69/bb4669ee253ea1d191783cc65a518542.jpg" alt="Stadium Energy Solution" class="service-card-img">
+              <div class="service-card-content">
+                <div class="service-card-header">
+                  <h3 class="service-card-title">Stadium & Arena</h3>
+                  <span class="badge">Heavy Duty</span>
+                </div>
+                <p class="service-card-desc">Massive kinetic tile arrays designed for stadiums, train stations, and high-footfall entertainment zones.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    // Dark mode toggle
+    const toggle = document.getElementById('darkmode-toggle');
+    const body = document.body;
+
+    if (toggle) {
+      toggle.addEventListener('change', () => {
+        body.classList.toggle('light-mode', toggle.checked);
+      });
+    }
+
+    // Rotating text around the circle
+    const text = document.querySelector('.text p');
+    if (text) {
+      text.innerHTML = text.innerText.split("").map(
+        (char, i) => `<span style="transform:rotate(${i * 5}deg)">${char}</span>`
+      ).join("");
+    }
+
+    // Services Tab Switcher Logic
+    function switchServiceTab(type, btn) {
+      const personalContent = document.getElementById('personal-content');
+      const commercialContent = document.getElementById('commercial-content');
+      const buttons = document.querySelectorAll('.tab-switcher .tab-btn');
+
+      // Reset button styles and remove indicator
+      buttons.forEach(b => {
+        b.style.color = body.classList.contains('light-mode') ? '#666' : '#7e7e7e';
+        const ind = b.querySelector('.indicator');
+        if (ind) ind.remove();
+      });
+
+      // Highlight active button and append bottom underline indicator
+      btn.style.color = body.classList.contains('light-mode') ? '#111' : '#fff';
+      const indicator = document.createElement('span');
+      indicator.className = 'indicator';
+      indicator.style.cssText = 'position: absolute; bottom: -2px; left: 0; width: 100%; height: 2px; background-color: currentColor;';
+      btn.appendChild(indicator);
+
+      // Toggle content panes
+      if (type === 'personal') {
+        personalContent.style.display = 'block';
+        commercialContent.style.display = 'none';
+      } else {
+        personalContent.style.display = 'none';
+        commercialContent.style.display = 'block';
+      }
+    }
+  </script>
+
+</body>
+</html>
